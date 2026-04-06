@@ -324,8 +324,13 @@
             input.value = '';
             input.style.height = 'auto';
 
-            // Pick random response
-            const response = RESPONSES[Math.floor(Math.random() * RESPONSES.length)];
+            // Pick random response — 33.33% chance of Åttifyyyra, rest split evenly
+            let response;
+            if (Math.random() < 1/3) {
+                response = { text: 'Åttifyyyra' };
+            } else {
+                response = RESPONSES[Math.floor(Math.random() * RESPONSES.length)];
+            }
 
             // Thinking message with aubergine indicator
             const thinkContent = addMessage('assistant', 'Det var et godt spørsmål... la meg tenke litt!');
