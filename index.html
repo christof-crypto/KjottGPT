@@ -113,25 +113,10 @@
         }
 
         .thinking-indicator {
-            display: inline-flex;
-            gap: 4px;
+            display: block;
             font-size: 1.2rem;
             margin-top: 8px;
-        }
-
-        .thinking-indicator .aubergine {
-            animation: pulse 1.2s ease-in-out infinite;
-            opacity: 0.25;
-        }
-
-        .thinking-indicator .aubergine.active {
-            opacity: 1;
-            transform: scale(1.15);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.25; transform: scale(1); }
-            50% { opacity: 0.25; transform: scale(1); }
+            letter-spacing: 4px;
         }
 
         /* Input area */
@@ -310,23 +295,16 @@
         function createThinkingIndicator() {
             const container = document.createElement('div');
             container.className = 'thinking-indicator';
-            for (let i = 0; i < 3; i++) {
-                const a = document.createElement('span');
-                a.className = 'aubergine';
-                a.textContent = '🍆';
-                container.appendChild(a);
-            }
             return container;
         }
 
         function startAubergineAnimation(indicator) {
-            const aubergines = indicator.querySelectorAll('.aubergine');
-            let current = 0;
+            let count = 0;
             const interval = setInterval(() => {
-                aubergines.forEach(a => a.classList.remove('active'));
-                aubergines[current].classList.add('active');
-                current = (current + 1) % 3;
-            }, 400);
+                count = (count % 3) + 1; // cycles 1, 2, 3, 1, 2, 3...
+                indicator.textContent = '🍆'.repeat(count);
+            }, 500);
+            indicator.textContent = '🍆';
             return interval;
         }
 
